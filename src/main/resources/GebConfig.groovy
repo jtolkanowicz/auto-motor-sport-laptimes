@@ -26,6 +26,6 @@ environments {
 
 // To run the tests with all browsers just run “./gradlew test”
 
-baseUrl = "http://www.auto-motor-und-sport.de/"
+baseUrl = "http://www.auto-motor-und-sport.de"
 
 reportsDir = "target/geb-reports"
