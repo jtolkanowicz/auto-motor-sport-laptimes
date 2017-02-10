@@ -1,4 +1,4 @@
-package pages
+package pl.tolkanowicz.ams.pages
 
 import geb.Page
 
