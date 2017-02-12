@@ -14,29 +14,40 @@ class CarPage extends Page {
 
     static url = "/supertest/mercedes-amg-gts-im-supertest-nordschleife-hockenheim-11578449.html/technische-daten/"
 
-    public static Browser getCarData(Browser browser, Car car) {
-        browser.drive {
-            to CarPage
-            Navigator carName = $("th", 1)
-            String make = "";
-            String model = "";
-            if (!carName.isEmpty()) {
-                String temp = carName.text()
-                make = temp.take(temp.indexOf(" "))
-                model = temp.drop(temp.indexOf(" ") + 1)
-            }
-
-            String time = "0:00"
-            Navigator nordschleifeSection = $("td", text: "Nordschleife").parent().parent().children()
-            while (nordschleifeSection.size() > 0) {
-                if (nordschleifeSection.children().getAt(0).text().equals("Rundenzeit")) {
-                    time = nordschleifeSection.children().getAt(1).text()
+    public static Car getCarData(String carPage) {
+        Car car = null;
+        Browser.drive {
+            go carPage + "/technische-daten/"
+            Navigator nordschleifeSection = $("td", text: "Nordschleife")
+            if (articleHasTestResult() && !nordschleifeSection.empty) {
+                Navigator carName = $("th", 1)
+                String make = "";
+                String model = "";
+                if (!carName.isEmpty()) {
+                    String temp = carName.text()
+                    make = temp.take(temp.indexOf(" "))
+                    model = temp.drop(temp.indexOf(" ") + 1)
                 }
-                nordschleifeSection = nordschleifeSection.next()
+                String time = "0:00"
+                nordschleifeSection = nordschleifeSection.parent().parent().children()
+                while (nordschleifeSection.size() > 0) {
+                    if (nordschleifeSection.children().getAt(0).text().equals("Rundenzeit")) {
+                        time = nordschleifeSection.children().getAt(1).text()
+                    }
+                    nordschleifeSection = nordschleifeSection.next()
+                }
+                car = new Car(make: make, model: model, time: time)
             }
-            car = new Car(make: make, model: model, time: time)
-            to ProfilePage
         }
+        return car;
+    }
+
+    private static boolean articleHasTestResult() {
+        boolean hasTestResult = true;
+        Browser.drive {
+            hasTestResult = !$("span", text: "Technische Daten").empty
+        }
+        return hasTestResult;
     }
 
 }
