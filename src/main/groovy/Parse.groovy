@@ -1,5 +1,6 @@
 import geb.Browser
 import geb.navigator.Navigator
+import groovy.json.JsonBuilder
 import pl.tolkanowicz.ams.Car
 import pl.tolkanowicz.ams.pages.CarPage
 import pl.tolkanowicz.ams.pages.LoginPage
@@ -23,13 +24,14 @@ Browser.drive {
         //js.exec"return document.readyState" == "complete"
     }
 }
-List<String> urls = SupertestPage.getSupertestUrls()
+List<String> urls = new SupertestPage().getSupertestUrls()
 List<Car> cars = new ArrayList<>()
 for(String url : urls) {
-    Car car = CarPage.getCarData(url)
-    if(car != null){
-        cars.add(car)
+    CarPage carPage = new CarPage(url: url)
+    if(carPage.hasCarData()){
+        cars.add(carPage.getCarData())
     }
+
 }
-println cars
+new File("Cars.json").write(new JsonBuilder(cars).toPrettyString())
 //logged = CarPage.getCarData(logged, car)
