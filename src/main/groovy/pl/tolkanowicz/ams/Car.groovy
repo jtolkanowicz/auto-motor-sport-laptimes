@@ -1,10 +1,19 @@
 package pl.tolkanowicz.ams
 
+import java.time.YearMonth
+
 /**
  * Created by jacek on 06.02.17.
  */
 class Car {
 
-    String make, model, time
+    Integer id
+
+    String make, model, productionYears, nordschleifeTime, hockenheimTime
+    YearMonth testDate
+    Integer weight, power, torque
+    Float time100, time200
+    //\d* PS
+    //tires
 
 }
