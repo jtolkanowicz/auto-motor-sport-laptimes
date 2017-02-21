@@ -15,15 +15,17 @@ import java.util.regex.Pattern
  */
 class CarPage {
 
-    String url;
-
-    Car car = null
+    Car car
 
     private boolean hasCarData = false
 
+    public CarPage(Car car){
+        this.car = car
+    }
+
     public boolean hasCarData() {
         Browser.drive {
-            go url + "/technische-daten/"
+            go car.url + "/technische-daten/"
             if (articleHasTestResult()) {
                 Navigator nordschleifeSection = $("td", text: "Nordschleife")
                 Navigator carName = $("th", 1)
@@ -35,29 +37,15 @@ class CarPage {
         return hasCarData
     }
 
-    public Car getCarData() {
+    public void readData() {
         if (hasCarData) {
             Browser.drive {
-                car = new Car(url: url)
-
-                readId()
-
                 readCarData()
 
                 readTestData()
-
             }
-            return car
-        } else {
-            return null
         }
 
-    }
-
-    private void readId(){
-        int lastDashId = url.lastIndexOf("-")
-        int lastDotId = url.lastIndexOf(".")
-        car.id = Integer.parseInt(url.substring(lastDashId+1, lastDotId))
     }
 
     private void readCarData(){
@@ -134,7 +122,7 @@ class CarPage {
     private void readProductionYears() {
         String rowValue = getRowValue("Baujahr")
         if (!rowValue.empty) {
-            car.productionYears = rowValue.replace("ab", "from").replace("bis", "to")
+            car.productionYears = rowValue.replace("ab ", "").replace("bis", "to")
         }
     }
 
