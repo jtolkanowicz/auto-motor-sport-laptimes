@@ -57,14 +57,14 @@ task chromeSettings(type: Test) {
 
 }
 
-task parse (dependsOn: 'classes', type: JavaExec) {
+task readTestData (dependsOn: 'classes', type: JavaExec) {
     //dependsOn chromeSettings
 
     def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
     def webdriverChromeDriver = new File(unzipChromeDriver.outputs.files.singleFile, chromedriverFilename).absolutePath
     systemProperty "webdriver.chrome.driver", webdriverChromeDriver
 
-    main = 'Parse'
+    main = 'ReadTestData'
     classpath = sourceSets.main.runtimeClasspath
 }
 

@@ -13,11 +13,11 @@ class TestLink {
         this.url = url
     }
 
-    TestLink(Integer id, String url, Boolean verified, Boolean hasCarData) {
+    TestLink(Integer id, String url, Boolean verified, Boolean hasTestData) {
         this.id = id
         this.url = url
         this.verified = verified
-        this.hasCarData = hasCarData
+        this.hasTestData = hasTestData
     }
     Integer id
 
@@ -25,6 +25,6 @@ class TestLink {
 
     Boolean verified = false
 
-    Boolean hasCarData = false
+    Boolean hasTestData = false
 
 }
