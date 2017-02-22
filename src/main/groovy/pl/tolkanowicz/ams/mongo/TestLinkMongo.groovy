@@ -25,37 +25,64 @@ class TestLinkMongo {
         collection = connection.database.getCollection("supertestLinks")
     }
 
-    private static Document getDocument(TestLink testLink){
+    private static Document getDocumentFromTestLink(TestLink testLink){
         return new Document("_id", testLink.id).
                 append("url", testLink.url).
                 append("verified", testLink.verified).
                 append("hasCarData", testLink.hasCarData)
     }
 
+    private static TestLink getTestLinkFromDocument(Document document){
+        Integer id = document.get("_id")
+        String url = document.get("url")
+        Boolean verified = document.get("verified")
+        Boolean hasCarData = document.get("hasCarData")
+        return new TestLink(id, url, verified, hasCarData)
+    }
+
+    public void dropAllRecords(){
+        collection.drop()
+    }
+
     public void createTestLink(TestLink testLink) {
-        Document testLinkDocument = getDocument(testLink)
+        Document testLinkDocument = getDocumentFromTestLink(testLink)
 
         collection.insertOne(testLinkDocument)
     }
 
-    public boolean testLinkExists(String url){
-        Document testLink = getTestLink(url)
-        return testLink != null
+    public void updateTestLink(TestLink testLink) {
+        Document testLinkDocument = getDocumentFromTestLink(testLink)
+        Bson update =  new Document('$set', testLinkDocument)
+
+        collection.updateOne(eq("_id", testLink.id), update)
     }
 
     public Document getTestLink(String url){
-        Document testLink = connection.collection.find(eq("url", url)).first()
+        Document testLink = collection.find(eq("url", url)).first()
         return testLink
     }
 
     public List<TestLink> getAllLinks(){
-        List<TestLink> urls = connection.collection.find() as List<TestLink>
+        List<TestLink> urls = collection.find() as List<TestLink>
         return urls
     }
 
     public List<TestLink> getAllNotVerifiedLinks(){
-        List<TestLink> urls = connection.collection.find(eq("verified", false)) as List<TestLink>
-        return urls
+        List<TestLink> testLinks = new ArrayList<>()
+        collection.find(eq("verified", false)).each {
+            document ->
+            testLinks.add(getTestLinkFromDocument(document))
+        }
+        return testLinks
+    }
+
+    public List<TestLink> getAllLinksWithoutData(){
+        List<TestLink> testLinks = new ArrayList<>()
+        collection.find(eq("hasCarData", false)).each {
+            document ->
+                testLinks.add(getTestLinkFromDocument(document))
+        }
+        return testLinks
     }
 
 }

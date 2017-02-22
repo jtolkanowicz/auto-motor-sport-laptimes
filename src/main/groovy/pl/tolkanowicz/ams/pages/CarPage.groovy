@@ -1,9 +1,9 @@
 package pl.tolkanowicz.ams.pages
 
 import geb.Browser
-import geb.Page
 import geb.navigator.Navigator
 import pl.tolkanowicz.ams.Car
+import pl.tolkanowicz.ams.TestLink
 
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -19,8 +19,8 @@ class CarPage {
 
     private boolean hasCarData = false
 
-    public CarPage(Car car){
-        this.car = car
+    public CarPage(TestLink link){
+        this.car = new Car(url: link.url, id: link.id)
     }
 
     public boolean hasCarData() {
@@ -29,7 +29,8 @@ class CarPage {
             if (articleHasTestResult()) {
                 Navigator nordschleifeSection = $("td", text: "Nordschleife")
                 Navigator carName = $("th", 1)
-                if (!nordschleifeSection.empty && !carName.empty) {
+                //carName.children().empty -> not a multitest
+                if (!nordschleifeSection.empty && !carName.empty && carName.children().empty) {
                     hasCarData = true
                 }
             }
@@ -60,8 +61,6 @@ class CarPage {
 
     private void readTestData(){
         readLaptimes()
-
-        readTestDate()
 
         readProductionYears()
 

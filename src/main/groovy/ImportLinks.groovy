@@ -7,6 +7,7 @@ import pl.tolkanowicz.ams.pages.SupertestPage
  */
 List<String> urls = new SupertestPage().getSupertestUrls()
 TestLinkMongo testLinkMongo = new TestLinkMongo()
+testLinkMongo.dropAllRecords()
 urls.each{ String url ->
     TestLink testLink = new TestLink(url)
     testLinkMongo.createTestLink(testLink)
