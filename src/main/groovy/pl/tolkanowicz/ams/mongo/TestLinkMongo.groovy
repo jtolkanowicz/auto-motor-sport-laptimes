@@ -61,7 +61,7 @@ class TestLinkMongo {
         Document testLink = collection.find(eq("url", url)).first()
         return testLink
     }
-    
+
     public List<TestLink> getAllNotVerifiedLinks(){
         List<TestLink> testLinks = new ArrayList<>()
         collection.find(eq("verified", false)).each {
