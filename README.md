@@ -17,6 +17,8 @@ Crawler gathers data from [Supertests](http://www.auto-motor-und-sport.de/supert
 * Test info - driver, test date, url
 * Test results - Nordschleife laptime, Hockenheim laptime, acceleration times 0-100 km/h and 0-200 km/h
 
+Supertest contains more data, but currently only data mentioned above is crawled.
+
 ## Usage
 
 Crawler has three scripts:
@@ -42,7 +44,7 @@ Script _importLinks_ drops data from Mongo and inserts fresh one to collection _
 Data from [Supertests](http://www.auto-motor-und-sport.de/supertests/) especially Nordschleife laptimes are quite 
 reliable. Most of tests are performed by one driver, [Horst von Saurma](https://en.wikipedia.org/wiki/Horst_von_Saurma) 
 and cars are in factory specification including tires and equipment. Automakers have their 'own definition' of 
-factory/street-legal specification.
+factory/street-legal specification. This tests are published in [sport auto](http://www.auto-motor-und-sport.de/sportauto-8835701.html) magazine
  
 ## Why this technology stack
  
@@ -51,7 +53,7 @@ I wanted to become more familiar with [Geb](http://www.gebish.org/) and use Mong
 ## Problems
 
 Tests below are problematic:
-* [McLaren 650s Spider - 9266605](http://www.auto-motor-und-sport.de/supertest/supertest-mclaren-650s-spider-nuerburgring-und-hockenheim-9266605.html) - Nurburgring data in test section
+* [McLaren 650s Spider - 9266605](http://www.auto-motor-und-sport.de/supertest/supertest-mclaren-650s-spider-nuerburgring-und-hockenheim-9266605.html) - Nurburgring data on image
 * [BMW M5 Competition - 8911761](http://www.auto-motor-und-sport.de/supertest/bmw-m5-competition-leistungsexplosion-der-sportlimousine-8911761.html) - Nurburgring data on image and in text
 * [Audi TT RS - 1747833](http://www.auto-motor-und-sport.de/supertest/audi-tt-rs-mit-340-ps-im-supertest-coupe-mit-fuenfzylinder-turbo-on-track-1747833.html) - Nurburgring data on image
 * [Ferrari 599 GTB - 1031324](http://www.auto-motor-und-sport.de/supertest/ferrari-599-gtb-fiorano-im-test-auf-der-nordschleife-ferrari-gran-turismo-mit-enzo-genen-1041324.html) - Nurburgring data on image and in text
@@ -66,10 +68,12 @@ Tests below are problematic:
 * [Aston Martin V12 Vanquish - 1036049](http://www.auto-motor-und-sport.de/supertest/aston-martin-v12-vanquish-im-supertest-test-des-aston-martin-v12-vanquish-auf-der-nordschleife-1036049.html) - no data at all
 * [Pagani Zonda S - 1036024](http://www.auto-motor-und-sport.de/supertest/pagani-zonda-s-supertest-1036024.html) - Nurburgring data in text
 * [Ferrari 550 Maranello - 1031307](http://www.auto-motor-und-sport.de/supertest/ferrari-550-maranello-feiner-italiener-1041307.html) - no data at all
+
 Solution: change reading data, add flag to force parsing even if there is no relevant data, add Nurburgring results 
 manually
 
 Other issues
 * Porsche 918 has got power only from combustion engine
 * there is no info about tires in tests results, only in text
+
 Solution: add info about tires manually (currently need to check 167 articles) ??
