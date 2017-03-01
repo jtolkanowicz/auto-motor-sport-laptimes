@@ -90,4 +90,11 @@ task importLinks (dependsOn: 'classes', type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
+task generateWikiTable (dependsOn: 'classes', type: JavaExec) {
+
+    main = 'GenerateWikiTable'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+
 apply from: "gradle/ci.gradle"
