@@ -17,9 +17,11 @@ import java.util.regex.Pattern
  */
 class CarPage {
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    private DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 
     private DateTimeFormatter formatterYearMonth = DateTimeFormatter.ofPattern("M/yyyy")
+
+    private DateTimeFormatter formatterIssueDate = DateTimeFormatter.ofPattern("M / yyyy")
 
     private static Map<String, String> gearboxes = new HashMap<>()
 
@@ -113,22 +115,34 @@ class CarPage {
             }
 
             Navigator testDate = $("span", text: text)
-            if (!testDate.empty) {
-                car.testDate = LocalDate.parse(testDate.previous().text(), formatter)
-            }
+            Navigator issueDate = $("span", text: "Dieser Artikel stammt aus diesem Heft")
+            car.testDate = getTestDate(testDate, issueDate)
+
+            Navigator title = $("meta", property: "og:title")
+            car.testTitle = title.getAttribute("content")
+        }
+    }
+
+    private String getTestDate(Navigator testDateNavigator, Navigator issueDateNavigator){
+        LocalDate testDate = LocalDate.parse(testDateNavigator.previous().text(), formatterDate)
+        if(issueDateNavigator.empty) {
+            return testDate.toString()
+        } else {
+            String issue = issueDateNavigator.parent().next().children().getAt(0).children().getAt(1).children().getAt(0).text()
+            YearMonth issueDate = YearMonth.parse(issue.substring(5), formatterIssueDate)
+            return issueDate.isBefore(YearMonth.from(testDate)) ? issueDate.toString() : testDate.toString()
         }
     }
 
     private void readMakeAndModel() {
-        Navigator carName = new EmptyNavigator()
         Browser.drive {
-            carName = $("th", 1)
+            Navigator carName = $("th", 1)
+            String carNameText = carName.text()
+            String make = carNameText.take(carNameText.indexOf(" "))
+            String model = carNameText.drop(carNameText.indexOf(" ") + 1)
+            car.make = make
+            car.model = model
         }
-        String carNameText = carName.text()
-        String make = carNameText.take(carNameText.indexOf(" "))
-        String model = carNameText.drop(carNameText.indexOf(" ") + 1)
-        car.make = make
-        car.model = model
     }
 
     private void readProductionYears() {
@@ -147,7 +161,7 @@ class CarPage {
     }
 
     private void readWeight() {
-        String rowValue = getRowValue("Leergewicht Testwagen\nvollgetankt")
+        String rowValue = getRowValue("Leergewicht\nHersteller")
         if (!rowValue.empty) {
             car.weight = Integer.parseInt(rowValue.split()[0])
         }

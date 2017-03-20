@@ -33,6 +33,7 @@ class CarMongo {
                 append("nordschleifeTime", car.nordschleifeTime).
                 append("hockenheimTime", car.hockenheimTime).
                 append("url", car.url).
+                append("testTitle", car.testTitle).
                 append("driver", car.driver).
                 append("gearbox", car.gearbox).
                 append("layout", car.layout).
@@ -43,7 +44,7 @@ class CarMongo {
                 append("time200", car.time200)
 
         if (car.testDate != null) {
-            document.append("testDate", car.testDate.toString())
+            document.append("testDate", car.testDate)
         }
         return document
     }
@@ -56,10 +57,11 @@ class CarMongo {
         String nordschleifeTime = document.get("nordschleifeTime")
         String hockenheimTime = document.get("hockenheimTime")
         String url = document.get("url")
+        String testTitle = document.get("testTitle")
         String driver = document.get("driver")
         String gearbox = document.get("gearbox")
         String layout = document.get("layout")
-        LocalDate testDate = LocalDate.parse(document.get("testDate").toString())
+        String testDate = document.get("testDate")
         Integer weight = Integer.parseInt(document.get("weight").toString())
         Integer power = Integer.parseInt(document.get("power").toString())
         Integer torque = Integer.parseInt(document.get("torque").toString())
@@ -70,8 +72,8 @@ class CarMongo {
         }
 
 
-        Car car = new Car(id: id, make: make, model: model, productionYears: productionYears, nordschleifeTime: nordschleifeTime, hockenheimTime: hockenheimTime, url: url, driver: driver,
-                gearbox: gearbox, layout: layout, testDate: testDate, weight: weight, power: power, torque: torque, time100: time100, time200: time200)
+        Car car = new Car(id: id, make: make, model: model, productionYears: productionYears, nordschleifeTime: nordschleifeTime, hockenheimTime: hockenheimTime, url: url, testTitle: testTitle,
+                driver: driver, gearbox: gearbox, layout: layout, testDate: testDate, weight: weight, power: power, torque: torque, time100: time100, time200: time200)
         return car
     }
 
