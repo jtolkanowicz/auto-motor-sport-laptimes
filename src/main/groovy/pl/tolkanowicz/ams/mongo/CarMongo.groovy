@@ -50,30 +50,37 @@ class CarMongo {
     }
 
     private static Car getCarFromDocument(Document document) {
-        Integer id = document.get("_id")
-        String make = document.get("make")
-        String model = document.get("model")
-        String productionYears = document.get("productionYears")
-        String nordschleifeTime = document.get("nordschleifeTime")
-        String hockenheimTime = document.get("hockenheimTime")
-        String url = document.get("url")
-        String testTitle = document.get("testTitle")
-        String driver = document.get("driver")
-        String gearbox = document.get("gearbox")
-        String layout = document.get("layout")
-        String testDate = document.get("testDate")
-        Integer weight = Integer.parseInt(document.get("weight").toString())
-        Integer power = Integer.parseInt(document.get("power").toString())
-        Integer torque = Integer.parseInt(document.get("torque").toString())
-        Float time100 = Float.parseFloat(document.get("time100").toString())
-        Float time200 = null
+        Integer id = document.getInteger("_id")
+        String make = document.getString("make")
+        String model = document.getString("model")
+        String productionYears = document.getString("productionYears")
+        String nordschleifeTime = document.getString("nordschleifeTime")
+        String hockenheimTime = document.getString("hockenheimTime")
+        String url = document.getString("url")
+        String testTitle = document.getString("testTitle")
+        String driver = document.getString("driver")
+        String gearbox = document.getString("gearbox")
+        String layout = document.getString("layout")
+        String testDate = document.getString("testDate")
+        Integer weight = document.getInteger("weight")
+        Integer power = document.getInteger("power")
+        Integer torque = document.getInteger("torque")
+        Double time100 = document.getDouble("time100")
+        Double time200 = null
         if (document.get("time200") != null) {
-            time200 = Float.parseFloat(document.get("time200").toString())
+            time200 = document.getDouble("time200")
         }
+        String tyres = document.get("tyres")
+        String tyresSource = document.getString("tyresSource")
+        String tyresSpec = document.getString("tyresSpec")
+        Boolean optionalTyre = document.get("optionalTyre") == null ? false : document.get("optionalTyre")
 
 
-        Car car = new Car(id: id, make: make, model: model, productionYears: productionYears, nordschleifeTime: nordschleifeTime, hockenheimTime: hockenheimTime, url: url, testTitle: testTitle,
-                driver: driver, gearbox: gearbox, layout: layout, testDate: testDate, weight: weight, power: power, torque: torque, time100: time100, time200: time200)
+        Car car = new Car(id: id, make: make, model: model, productionYears: productionYears,
+                nordschleifeTime: nordschleifeTime, hockenheimTime: hockenheimTime, url: url, testTitle: testTitle,
+                driver: driver, gearbox: gearbox, layout: layout, testDate: testDate, weight: weight, power: power,
+                torque: torque, time100: time100, time200: time200, tyres: tyres, tyresSource: tyresSource,
+                tyresSpec: tyresSpec, optionalTyre: optionalTyre)
         return car
     }
 
