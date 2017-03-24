@@ -23,6 +23,7 @@ class TestLinkMongo {
     }
 
     private static Document getDocumentFromTestLink(TestLink testLink){
+
         return new Document("_id", testLink.id).
                 append("url", testLink.url).
                 append("verified", testLink.verified).
@@ -54,9 +55,13 @@ class TestLinkMongo {
         collection.updateOne(eq("_id", testLink.id), update)
     }
 
-    public TestLink getTestLink(Integer id){
-        Document document = collection.find(eq("_id", id)).first()
-        return getTestLinkFromDocument(document)
+    public Document getTestLink(Integer id){
+        return collection.find(eq("_id", id)).first()
+    }
+
+    public boolean testLinkExists(Integer id) {
+        Document testLink = getTestLink(id)
+        return testLink != null
     }
 
     public List<TestLink> getAllNotVerifiedLinks(){
