@@ -45,9 +45,9 @@ You run them in this order:
     gradle addMissingData
     gradle generateWikiTable
 
-Script _importLinks_ drops data from Mongo and inserts fresh one to collection _links_. _verifyLinks_ only updates data.
- _readTestData_ inserts new data, and can be restarted if it fails. It starts where it stopped before. If you want to 
- read data from scratch you must drop collection named _results_.
+Script _importLinks_ inserts links to new tests to collection _links_.  _verifyLinks_ only updates data. _readTestData_ 
+inserts new data, and can be restarted if it fails. It starts where it stopped before.
+If you want to read data from scratch you must drop collection named _results_ and _links_.
 
 ## Why gather data this data
 
@@ -88,3 +88,4 @@ This tests don't have any test results:
 * Porsche 918 has got power only from combustion engine
 * gradle task have some steps in common, it can be refactored
 * add info to wiki about tyre spec, source of tyre information, optional tyre
+* change tyre ?structure
