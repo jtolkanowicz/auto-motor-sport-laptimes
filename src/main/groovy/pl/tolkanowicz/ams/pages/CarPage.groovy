@@ -41,7 +41,7 @@ class CarPage {
     private boolean hasTestData = false
 
     public CarPage(TestLink link) {
-        this.car = new Car(url: link.url, id: link.id)
+        this.car = new Car(url: link.url, _id: link.id)
     }
 
     public boolean hasTestData() {

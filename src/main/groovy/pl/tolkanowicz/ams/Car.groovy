@@ -7,14 +7,14 @@ import java.time.LocalDate
  */
 class Car {
 
-    Integer id
+    Integer _id
 
     String make, model, productionYears, nordschleifeTime, hockenheimTime, url, testTitle, driver, gearbox, layout,
-            testDate, tyres, tyresSource, tyresSpec
+            testDate
 
     Integer weight, power, torque
 
     Double time100, time200
 
-    Boolean optionalTyre
+    Tyres tyres
 }

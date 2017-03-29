@@ -2,11 +2,10 @@ package pl.tolkanowicz.ams.mongo
 
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.UpdateOptions
+import groovy.json.JsonSlurper
 import org.bson.Document
 import org.bson.conversions.Bson
 import pl.tolkanowicz.ams.Car
-
-import java.time.LocalDate
 
 import static com.mongodb.client.model.Filters.eq
 
@@ -26,7 +25,7 @@ class CarMongo {
     }
 
     private static Document getDocumentFromCar(Car car) {
-        Document document = new Document("_id", car.id).
+        Document document = new Document("_id", car._id).
                 append("make", car.make).
                 append("model", car.model).
                 append("productionYears", car.productionYears).
@@ -50,7 +49,11 @@ class CarMongo {
     }
 
     private static Car getCarFromDocument(Document document) {
-        Integer id = document.getInteger("_id")
+        String carJson = document.toJson()
+        Object carMap = new JsonSlurper().parseText(carJson)
+        Car car = new Car(carMap)
+        return car
+        /*Integer id = document.getInteger("_id")
         String make = document.getString("make")
         String model = document.getString("model")
         String productionYears = document.getString("productionYears")
@@ -70,17 +73,16 @@ class CarMongo {
         if (document.get("time200") != null) {
             time200 = document.getDouble("time200")
         }
-        String tyres = document.get("tyres")
+        String name = document.get("tyres")
         String tyresSource = document.getString("tyresSource")
-        String tyresSpec = document.getString("tyresSpec")
+        String spec = document.getString("tyresSpec")
         Boolean optionalTyre = document.get("optionalTyre") == null ? false : document.get("optionalTyre")
 
 
         Car car = new Car(id: id, make: make, model: model, productionYears: productionYears,
                 nordschleifeTime: nordschleifeTime, hockenheimTime: hockenheimTime, url: url, testTitle: testTitle,
                 driver: driver, gearbox: gearbox, layout: layout, testDate: testDate, weight: weight, power: power,
-                torque: torque, time100: time100, time200: time200, tyres: tyres, tyresSource: tyresSource,
-                tyresSpec: tyresSpec, optionalTyre: optionalTyre)
+                torque: torque, time100: time100, time200: time200, tyres: new Tyres(name: name, spec: ))*/
         return car
     }
 
