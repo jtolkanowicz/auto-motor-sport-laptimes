@@ -1085,6 +1085,22 @@
       "optional":true
     }
   },
+
+  {
+    "_id":11824151,
+    "tyres":{
+      "name":"Michelin Pilot Sport Cup 2",
+      "optional":false
+    }
+  },
+  {
+    "_id":11932767,
+    "model": "John Cooper Works Pro",
+    "tyres":{
+      "name":"Pirelli P Zero",
+      "optional":false
+    }
+  },
   {
     "_id":9266605,
     "nordschleifeTime":"7.35",
