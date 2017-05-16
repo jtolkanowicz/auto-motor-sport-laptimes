@@ -201,9 +201,13 @@ class CarPage {
     }
 
     private void readLaptimes() {
-        car.nordschleifeTime = readRowInSection("Nordschleife", "Rundenzeit")
-        car.hockenheimTime = readRowInSection("Hockenheim", "Rundenzeit")
+        String nordschleifeTimePattern = "\\d.\\d{2}"
+        String nordschleifeTime = readRowInSection("Nordschleife", "Rundenzeit")
+        car.nordschleifeTime = getMatchedValue(nordschleifeTime, nordschleifeTimePattern)
 
+        String hockenheimTimePattern = "\\d.\\d{2},\\d"
+        String hockenheimTime = readRowInSection("Hockenheim", "Rundenzeit")
+        car.hockenheimTime = getMatchedValue(hockenheimTime, hockenheimTimePattern)
     }
 
     private void readAccelerationTimes() {
@@ -241,7 +245,7 @@ class CarPage {
         return value
     }
 
-    private static String getMatchedValue(String rowValue, String regex) {
+    private static getMatchedValue = { String rowValue, String regex ->
         Pattern pattern = Pattern.compile(regex)
         Matcher matcher = pattern.matcher(rowValue)
         if (matcher.find()) {
@@ -251,7 +255,7 @@ class CarPage {
         }
     }
 
-    private String getRowValue(String rowName) {
+    private getRowValue = { String rowName ->
         String rowValue = ""
         Browser.drive {
             Navigator row = $("td", text: rowName)
