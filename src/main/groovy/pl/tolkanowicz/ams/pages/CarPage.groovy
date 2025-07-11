@@ -5,6 +5,7 @@ import geb.navigator.Navigator
 import pl.tolkanowicz.ams.Car
 import pl.tolkanowicz.ams.TestLink
 
+import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.regex.Matcher
@@ -15,15 +16,17 @@ import java.util.regex.Pattern
  */
 class CarPage {
 
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
     Car car
 
-    private boolean hasCarData = false
+    private boolean hasTestData = false
 
-    public CarPage(TestLink link){
+    public CarPage(TestLink link) {
         this.car = new Car(url: link.url, id: link.id)
     }
 
-    public boolean hasCarData() {
+    public boolean hasTestData() {
         Browser.drive {
             go car.url + "/technische-daten/"
             if (articleHasTestResult()) {
@@ -31,25 +34,25 @@ class CarPage {
                 Navigator carName = $("th", 1)
                 //carName.children().empty -> not a multitest
                 if (!nordschleifeSection.empty && !carName.empty && carName.children().empty) {
-                    hasCarData = true
+                    hasTestData = true
                 }
             }
         }
-        return hasCarData
+        return hasTestData
     }
 
     public void readData() {
-        if (hasCarData) {
-            Browser.drive {
-                readCarData()
+        if (hasTestData) {
+            readCarData()
 
-                readTestData()
-            }
+            readTestData()
+
+            readTestInfo()
         }
 
     }
 
-    private void readCarData(){
+    private void readCarData() {
         readMakeAndModel()
 
         readWeight()
@@ -57,14 +60,30 @@ class CarPage {
         readPower()
 
         readTorque()
-    }
-
-    private void readTestData(){
-        readLaptimes()
 
         readProductionYears()
+    }
+
+    private void readTestData() {
+        readLaptimes()
 
         readAccelerationTimes()
+    }
+
+    private void readTestInfo() {
+        Browser.drive {
+            go car.url
+
+            Navigator testDate = $("span", class: "y99 a100")
+            if (!testDate.empty) {
+                car.testDate = LocalDate.parse(testDate.text(), formatter)
+            }
+
+            Navigator driver = $("span", text: "Redakteur")
+            if (!driver.previous().empty) {
+                car.driver = driver.previous().text()
+            }
+        }
     }
 
     private boolean articleHasTestResult() {
@@ -77,7 +96,7 @@ class CarPage {
 
     private void readMakeAndModel() {
         Navigator carName
-        Browser.drive{
+        Browser.drive {
             carName = $("th", 1)
         }
         String carNameText = carName.text()
@@ -87,7 +106,7 @@ class CarPage {
         car.model = model
     }
 
-    private void readLaptimes(){
+    private void readLaptimes() {
         car.nordschleifeTime = readLapTime("Nordschleife")
         car.hockenheimTime = readLapTime("Hockenheim")
     }
@@ -108,14 +127,6 @@ class CarPage {
             }
         }
         return time
-    }
-
-    private void readTestDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
-        String rowValue = getRowValue("Testdatum")
-        if (!rowValue.empty) {
-            car.testDate = YearMonth.parse(rowValue, formatter)
-        }
     }
 
     private void readProductionYears() {
@@ -148,14 +159,14 @@ class CarPage {
         }
     }
 
-    private void readAccelerationTimes(){
+    private void readAccelerationTimes() {
         String time0100 = getRowValue("0-100 km/h\nMesswert").split()[0]
-        if(!time0100.empty) {
-            car.time100 = Float.parseFloat(time0100.replace(",","."))
+        if (!time0100.empty) {
+            car.time100 = Float.parseFloat(time0100.replace(",", "."))
         }
         String time0200 = getRowValue("0-200 km/h\nMesswert").split()[0]
-        if(!time0200.empty){
-            car.time200 = Float.parseFloat(time0200.replace(",","."))
+        if (!time0200.empty) {
+            car.time200 = Float.parseFloat(time0200.replace(",", "."))
         }
     }
 

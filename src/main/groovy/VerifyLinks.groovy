@@ -1,4 +1,3 @@
-import pl.tolkanowicz.ams.Car
 import pl.tolkanowicz.ams.TestLink
 import pl.tolkanowicz.ams.mongo.TestLinkMongo
 import pl.tolkanowicz.ams.pages.CarPage
@@ -15,7 +14,7 @@ new LoginPage().login()
 notVerifiedLinks.each{ TestLink link ->
     CarPage carPage = new CarPage(link)
     link.verified = true
-    link.hasCarData = carPage.hasCarData()
+    link.hasTestData = carPage.hasTestData()
     testLinkMongo.updateTestLink(link)
     println "Current id " + link.id
 }

@@ -1,13 +1,10 @@
 package pl.tolkanowicz.ams.mongo
 
 import com.mongodb.client.MongoCollection
-import com.mongodb.client.model.UpdateOptions
 import org.bson.Document
 import org.bson.conversions.Bson
-import pl.tolkanowicz.ams.Car
 import pl.tolkanowicz.ams.TestLink
 
-import static com.mongodb.client.model.Filters.eq
 import static com.mongodb.client.model.Filters.eq
 
 /**
@@ -29,15 +26,15 @@ class TestLinkMongo {
         return new Document("_id", testLink.id).
                 append("url", testLink.url).
                 append("verified", testLink.verified).
-                append("hasCarData", testLink.hasCarData)
+                append("hasTestData", testLink.hasTestData)
     }
 
     private static TestLink getTestLinkFromDocument(Document document){
         Integer id = document.get("_id")
         String url = document.get("url")
         Boolean verified = document.get("verified")
-        Boolean hasCarData = document.get("hasCarData")
-        return new TestLink(id, url, verified, hasCarData)
+        Boolean hasTestData = document.get("hasTestData")
+        return new TestLink(id, url, verified, hasTestData)
     }
 
     public void dropAllRecords(){
@@ -57,9 +54,9 @@ class TestLinkMongo {
         collection.updateOne(eq("_id", testLink.id), update)
     }
 
-    public Document getTestLink(String url){
-        Document testLink = collection.find(eq("url", url)).first()
-        return testLink
+    public TestLink getTestLink(Integer id){
+        Document document = collection.find(eq("_id", id)).first()
+        return getTestLinkFromDocument(document)
     }
 
     public List<TestLink> getAllNotVerifiedLinks(){
