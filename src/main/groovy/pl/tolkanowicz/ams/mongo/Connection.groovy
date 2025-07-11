@@ -26,8 +26,6 @@ class Connection {
         mongoClient = new MongoClient()
 
         database = mongoClient.getDatabase("ams")
-
-        collection = database.getCollection("supertestResults")
     }
 
 

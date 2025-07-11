@@ -20,8 +20,12 @@ class CarMongo {
 
     Connection connection
 
+    MongoCollection<Document> collection
+
     public CarMongo(){
         connection = new Connection()
+
+        collection = connection.getCollection("supertestResults")
     }
 
     private static Document getDocument(Car car){
@@ -48,7 +52,7 @@ class CarMongo {
         Bson update =  new Document('$set', carDocument)
         UpdateOptions options = new UpdateOptions().upsert(true)
 
-        connection.collection.updateOne(filter, update, options)
+        collection.updateOne(filter, update, options)
     }
 
     public boolean carExists(Integer id){
