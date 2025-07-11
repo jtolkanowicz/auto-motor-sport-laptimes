@@ -31,15 +31,24 @@ cars.each {
             time200d = car.time200.trunc(1)
         }
         car.driver = car.driver == null ? "" : car.driver
-        car.gearbox = car.gearbox == null ? "" : car.gearbox
+
         double ptwr = ((Double)car.weight / car.power).trunc(1)
-        Tyres tyres = car.tyres
-        String tyresSpec = tyres.spec == null ? "" : " [" + tyres.spec + "]"
-        String tyreInfo = tyres.name + tyresSpec + (tyres.optional  ? " *" : "") + (tyres.source != null ?
-                " <ref>{{cite web|url=$tyres.source|title=$tyres.sourceTitle|accessdate=23 March 2017}}</ref>" : "")
+
+        String nordschleifeTime = car.nordschleifeTime + " Min"
+        String hockenheimTime = car.hockenheimTime + " Min"
+
+        String tyreInfo = "";
+        if(car.tyres != null) {
+            Tyres tyres = car.tyres
+
+            String tyresSpec = tyres.spec == null ? "" : " [" + tyres.spec + "]"
+            tyreInfo = tyres.name + tyresSpec + (tyres.optional  ? " *" : "") + (tyres.source != null ?
+                    " <ref>{{cite web|url=$tyres.source|title=$tyres.sourceTitle|accessdate=23 March 2017}}</ref>" : "")
+        }
+
         String testInfo = car.testDate + " <ref>{{cite web|url=http://www.auto-motor-und-sport.de$car.url|title=$car.testTitle|work=Sportauto|accessdate=23 March 2017}}</ref>"
         wikitable.append("\n|-\n").
-                append("| $car.make || $car.model || $testInfo || $car.nordschleifeTime || $car.hockenheimTime || $time100d || $time200d " +
+                append("| $car.make || $car.model || $testInfo || $nordschleifeTime || $hockenheimTime || $time100d || $time200d " +
                         "|| $car.driver || $car.productionYears || $car.power || $ptwr || $tyreInfo")
 
         

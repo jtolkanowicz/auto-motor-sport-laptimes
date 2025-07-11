@@ -1,7 +1,9 @@
 package pl.tolkanowicz.ams.mongo
 
+import com.mongodb.BasicDBObject
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.UpdateOptions
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import org.bson.Document
 import org.bson.conversions.Bson
@@ -25,64 +27,14 @@ class CarMongo {
     }
 
     private static Document getDocumentFromCar(Car car) {
-        Document document = new Document("_id", car._id).
-                append("make", car.make).
-                append("model", car.model).
-                append("productionYears", car.productionYears).
-                append("nordschleifeTime", car.nordschleifeTime).
-                append("hockenheimTime", car.hockenheimTime).
-                append("url", car.url).
-                append("testTitle", car.testTitle).
-                append("driver", car.driver).
-                append("gearbox", car.gearbox).
-                append("layout", car.layout).
-                append("weight", car.weight).
-                append("power", car.power).
-                append("torque", car.torque).
-                append("time100", car.time100).
-                append("time200", car.time200)
-
-        if (car.testDate != null) {
-            document.append("testDate", car.testDate)
-        }
-        return document
+        String json = new JsonBuilder(car)
+        return Document.parse(json)
     }
 
     private static Car getCarFromDocument(Document document) {
         String carJson = document.toJson()
         Object carMap = new JsonSlurper().parseText(carJson)
         Car car = new Car(carMap)
-        return car
-        /*Integer id = document.getInteger("_id")
-        String make = document.getString("make")
-        String model = document.getString("model")
-        String productionYears = document.getString("productionYears")
-        String nordschleifeTime = document.getString("nordschleifeTime")
-        String hockenheimTime = document.getString("hockenheimTime")
-        String url = document.getString("url")
-        String testTitle = document.getString("testTitle")
-        String driver = document.getString("driver")
-        String gearbox = document.getString("gearbox")
-        String layout = document.getString("layout")
-        String testDate = document.getString("testDate")
-        Integer weight = document.getInteger("weight")
-        Integer power = document.getInteger("power")
-        Integer torque = document.getInteger("torque")
-        Double time100 = document.getDouble("time100")
-        Double time200 = null
-        if (document.get("time200") != null) {
-            time200 = document.getDouble("time200")
-        }
-        String name = document.get("tyres")
-        String tyresSource = document.getString("tyresSource")
-        String spec = document.getString("tyresSpec")
-        Boolean optionalTyre = document.get("optionalTyre") == null ? false : document.get("optionalTyre")
-
-
-        Car car = new Car(id: id, make: make, model: model, productionYears: productionYears,
-                nordschleifeTime: nordschleifeTime, hockenheimTime: hockenheimTime, url: url, testTitle: testTitle,
-                driver: driver, gearbox: gearbox, layout: layout, testDate: testDate, weight: weight, power: power,
-                torque: torque, time100: time100, time200: time200, tyres: new Tyres(name: name, spec: ))*/
         return car
     }
 
@@ -119,7 +71,7 @@ class CarMongo {
 
     public List<Car> getAllCars() {
         List<Car> cars = new ArrayList<>()
-        collection.find().each {
+        collection.find().sort(new BasicDBObject("nordschleifeTime", 1)).each {
             document ->
                 cars.add(getCarFromDocument(document))
         }
