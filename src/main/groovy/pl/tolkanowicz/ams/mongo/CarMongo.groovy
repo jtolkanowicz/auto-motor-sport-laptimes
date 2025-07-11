@@ -5,7 +5,6 @@ import com.mongodb.client.model.UpdateOptions
 import org.bson.Document
 import org.bson.conversions.Bson
 import pl.tolkanowicz.ams.Car
-import pl.tolkanowicz.ams.TestLink
 
 import java.time.LocalDate
 
@@ -79,7 +78,11 @@ class CarMongo {
     public void saveOrUpdateCar(Car car) {
         Document carDocument = getDocumentFromCar(car)
 
-        Bson filter = eq("_id", car.id)
+        saveOrUpdateCar(carDocument)
+    }
+
+    public void saveOrUpdateCar(Document carDocument) {
+        Bson filter = eq("_id", carDocument.get("_id"))
 
         Bson update = new Document('$set', carDocument)
         UpdateOptions options = new UpdateOptions().upsert(true)
