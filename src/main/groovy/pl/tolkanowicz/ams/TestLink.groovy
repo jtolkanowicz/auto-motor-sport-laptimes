@@ -5,7 +5,7 @@ package pl.tolkanowicz.ams
  */
 class TestLink {
 
-    public TestLink(String url){
+    TestLink(String url){
         int lastDashId = url.lastIndexOf("-")
         int lastDotId = url.lastIndexOf(".")
 
@@ -13,6 +13,12 @@ class TestLink {
         this.url = url
     }
 
+    TestLink(Integer id, String url, Boolean verified, Boolean hasCarData) {
+        this.id = id
+        this.url = url
+        this.verified = verified
+        this.hasCarData = hasCarData
+    }
     Integer id
 
     String url
