@@ -1,15 +1,10 @@
 package pl.tolkanowicz.ams.mongo
 
-import com.mongodb.MongoClient
 import com.mongodb.client.MongoCollection
-import com.mongodb.client.MongoDatabase
-import com.mongodb.client.model.Filters
 import com.mongodb.client.model.UpdateOptions
 import org.bson.Document
 import org.bson.conversions.Bson
 import pl.tolkanowicz.ams.Car
-
-import java.time.format.DateTimeFormatter
 
 import static com.mongodb.client.model.Filters.eq
 
@@ -25,23 +20,31 @@ class CarMongo {
     public CarMongo(){
         connection = new Connection()
 
-        collection = connection.getCollection("supertestResults")
+        collection = connection.database.getCollection("results")
     }
 
     private static Document getDocument(Car car){
-        return new Document("_id", car.id).
+        Document document = new Document("_id", car.id).
                 append("make", car.make).
                 append("model", car.model).
                 append("productionYears", car.productionYears).
                 append("nordschleifeTime", car.nordschleifeTime).
                 append("hockenheimTime", car.hockenheimTime).
                 append("url", car.url).
-                append("testDate", car.testDate.toString()).
+                append("driver", car.driver).
+                append("gearbox", car.gearbox).
+                append("layout", car.layout).
                 append("weight", car.weight).
                 append("power", car.power).
                 append("torque", car.torque).
                 append("time100", car.time100).
                 append("time200", car.time200)
+
+
+        if(car.testDate != null){
+            document.append("testDate", car.testDate.toString())
+        }
+        return document
     }
 
     public void saveOrUpdateCar(Car car) {
@@ -55,13 +58,19 @@ class CarMongo {
         collection.updateOne(filter, update, options)
     }
 
+    public void createCar(Car car) {
+        Document carDocument = getDocument(car)
+
+        collection.insertOne(carDocument)
+    }
+
     public boolean carExists(Integer id){
         Document car = getCar(id)
         return car != null
     }
 
     public Document getCar(Integer id){
-        Document car = connection.collection.find(eq("_id", id)).first()
+        Document car = collection.find(eq("_id", id)).first()
         return car
     }
 

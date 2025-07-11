@@ -19,7 +19,7 @@ class TestLinkMongo {
     public TestLinkMongo(){
         connection = new Connection()
 
-        collection = connection.database.getCollection("supertestLinks")
+        collection = connection.database.getCollection("links")
     }
 
     private static Document getDocumentFromTestLink(TestLink testLink){
@@ -64,6 +64,15 @@ class TestLinkMongo {
         collection.find(eq("verified", false)).each {
             document ->
             testLinks.add(getTestLinkFromDocument(document))
+        }
+        return testLinks
+    }
+
+    public List<TestLink> getAllLinksWithTestData(){
+        List<TestLink> testLinks = new ArrayList<>()
+        collection.find(eq("hasTestData", true)).each {
+            document ->
+                testLinks.add(getTestLinkFromDocument(document))
         }
         return testLinks
     }
