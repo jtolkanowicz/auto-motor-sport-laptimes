@@ -8,46 +8,74 @@ import pl.tolkanowicz.ams.Car
 /**
  * Created by jacek on 09.01.17.
  */
-class CarPage extends Page {
+class CarPage {
 
-    //static url = "/supertest/bmw-m3-smg-e36-im-supertest-der-gesellschaftliche-ueberflieger-im-test-2783833.html/technische-daten/"
+    String url;
 
-    static url = "/supertest/mercedes-amg-gts-im-supertest-nordschleife-hockenheim-11578449.html/technische-daten/"
+    Car car = null
 
-    public static Car getCarData(String carPage) {
-        Car car = null;
+    private boolean hasCarData = false
+
+    private Navigator nordschleifeSection
+
+    private Navigator carName
+
+    public boolean hasCarData() {
         Browser.drive {
-            go carPage + "/technische-daten/"
-            Navigator nordschleifeSection = $("td", text: "Nordschleife")
-            if (articleHasTestResult() && !nordschleifeSection.empty) {
-                Navigator carName = $("th", 1)
-                String make = "";
-                String model = "";
-                if (!carName.isEmpty()) {
-                    String temp = carName.text()
-                    make = temp.take(temp.indexOf(" "))
-                    model = temp.drop(temp.indexOf(" ") + 1)
+            go url + "/technische-daten/"
+            if (articleHasTestResult()) {
+                nordschleifeSection = $("td", text: "Nordschleife")
+                carName = $("th", 1)
+                if (!nordschleifeSection.empty && !carName.empty) {
+                    hasCarData = true
                 }
-                String time = "0:00"
-                nordschleifeSection = nordschleifeSection.parent().parent().children()
-                while (nordschleifeSection.size() > 0) {
-                    if (nordschleifeSection.children().getAt(0).text().equals("Rundenzeit")) {
-                        time = nordschleifeSection.children().getAt(1).text()
-                    }
-                    nordschleifeSection = nordschleifeSection.next()
-                }
-                car = new Car(make: make, model: model, time: time)
             }
         }
-        return car;
+        return hasCarData
     }
 
-    private static boolean articleHasTestResult() {
+    public Car getCarData() {
+        if (hasCarData) {
+            Browser.drive {
+                car = new Car()
+
+                getMakeAndModel(carName.text())
+
+                nordschleifeSection = nordschleifeSection.parent().parent().children()
+                getTime(nordschleifeSection)
+            }
+            return car
+        } else {
+            return null
+        }
+
+    }
+
+    private boolean articleHasTestResult() {
         boolean hasTestResult = true;
         Browser.drive {
             hasTestResult = !$("span", text: "Technische Daten").empty
         }
         return hasTestResult;
+    }
+
+    private getMakeAndModel(String temp) {
+        String make = temp.take(temp.indexOf(" "))
+        String model = temp.drop(temp.indexOf(" ") + 1)
+        car.make = make
+        car.model = model
+    }
+
+    private getTime(Navigator nordschleifeSection) {
+        String time = "0:00"
+
+        while (nordschleifeSection.size() > 0) {
+            if (nordschleifeSection.children().getAt(0).text().equals("Rundenzeit")) {
+                time = nordschleifeSection.children().getAt(1).text()
+            }
+            nordschleifeSection = nordschleifeSection.next()
+        }
+        car.time = time
     }
 
 }

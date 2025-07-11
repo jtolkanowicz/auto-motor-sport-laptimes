@@ -8,27 +8,27 @@ import pl.tolkanowicz.ams.Car
 /**
  * Created by jacek on 10.02.17.
  */
-class SupertestPage extends Page {
+class SupertestPage {
 
-    static basicUrl = "/supertests/?p=0"
+    private url = "/supertests/?p=0"
 
-    public static List<String> getSupertestUrls() {
-        List<String> urls = new ArrayList<>();
+    private List<String> urls = new ArrayList<>()
+
+    public List<String> getSupertestUrls() {
         Browser.drive {
-            go basicUrl
-            urls.addAll(getUrls())
+            go url
             Navigator next = $("a", text: "weiter")
+            getUrls()
             while(!next.empty){
                 go next.@href
-                urls.addAll(getUrls())
+                getUrls()
                 next = $("a", text: "weiter")
             }
         }
         return urls;
     }
 
-    private static List<String> getUrls(){
-        List<String> urls = new ArrayList<>()
+    private void getUrls(){
         Browser.drive {
             Navigator links = $("a", class: "a125 f")
             for (int i = 0; i < links.size(); i++) {
@@ -36,7 +36,6 @@ class SupertestPage extends Page {
                 urls.add(urlPath)
             }
         }
-        return urls;
     }
 
 }
