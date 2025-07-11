@@ -74,6 +74,5 @@ manually
 
 Other issues
 * Porsche 918 has got power only from combustion engine
-* there is no info about tires in tests results, only in text
-
-Solution: add info about tires manually (currently need to check 167 articles) ??
+* there is no info about tires in tests results, only in text - solution: add info about tires manually (currently need to check 167 articles) ??
+* gradle task have some steps in common, it can be refactored
