@@ -10,6 +10,8 @@ import pl.tolkanowicz.ams.Car
  */
 class SupertestPage {
 
+    //ids from article url
+
     private url = "/supertests/?p=0"
 
     private List<String> urls = new ArrayList<>()
@@ -19,7 +21,7 @@ class SupertestPage {
             go url
             Navigator next = $("a", text: "weiter")
             getUrls()
-            while(!next.empty){
+            while (!next.empty) {
                 go next.@href
                 getUrls()
                 next = $("a", text: "weiter")
@@ -28,12 +30,14 @@ class SupertestPage {
         return urls;
     }
 
-    private void getUrls(){
+    private void getUrls() {
         Browser.drive {
             Navigator links = $("a", class: "a125 f")
             for (int i = 0; i < links.size(); i++) {
                 String urlPath = new URL(links.getAt(i).@href).getPath()
-                urls.add(urlPath)
+                if (urlPath.contains("/supertest/")) {
+                    urls.add(urlPath)
+                }
             }
         }
     }

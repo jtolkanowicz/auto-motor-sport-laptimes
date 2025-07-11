@@ -24,7 +24,6 @@ Browser.drive {
         //js.exec"return document.readyState" == "complete"
     }
 }
-List<String> urls = new SupertestPage().getSupertestUrls()
 List<Car> cars = new ArrayList<>()
 for(String url : urls) {
     CarPage carPage = new CarPage(url: url)

@@ -47,14 +47,35 @@ drivers.each { driver ->
     }
 }
 
-task runScript (dependsOn: 'classes', type: JavaExec) {
+task chromeSettings(type: Test) {
     dependsOn unzipChromeDriver
 
     def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
     def webdriverChromeDriver = new File(unzipChromeDriver.outputs.files.singleFile, chromedriverFilename).absolutePath
     systemProperty "webdriver.chrome.driver", webdriverChromeDriver
 
-    main = 'Parse'
+}
+
+task parse (dependsOn: 'classes', type: JavaExec) {
+    //dependsOn chromeSettings
+
+    def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
+    def webdriverChromeDriver = new File(unzipChromeDriver.outputs.files.singleFile, chromedriverFilename).absolutePath
+    systemProperty "webdriver.chrome.driver", webdriverChromeDriver
+
+    main = 'ParseSingleCar'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task listLinks (dependsOn: 'classes', type: JavaExec) {
+    //dependsOn chromeSettings
+    dependsOn unzipChromeDriver
+
+    def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
+    def webdriverChromeDriver = new File(unzipChromeDriver.outputs.files.singleFile, chromedriverFilename).absolutePath
+    systemProperty "webdriver.chrome.driver", webdriverChromeDriver
+
+    main = 'ListLinks'
     classpath = sourceSets.main.runtimeClasspath
 }
 
