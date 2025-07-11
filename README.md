@@ -19,7 +19,7 @@ Crawler gathers data from [Supertests](http://www.auto-motor-und-sport.de/supert
 
 Supertest contains more data, but currently only data mentioned above is crawled. Information about tyres and some test
  dates was added manually. If there was no information about tyres in article I checked other tests from 
- [Auto motor und sport](http://www.auto-motor-und-sport.de/testarchiv/) or looked other articles in internet.
+ [Auto motor und sport](http://www.auto-motor-und-sport.de/testarchiv/) or looked for articles in internet.
 
 ## Usage
 
@@ -32,7 +32,9 @@ Crawler has these scripts:
 * readTestData - it goes through verified links, checks if data exists once more and reads it
 * readMissingTestData - it goes through tests which were marked as not having relevant data, missing data will be added
 manually, this tests are mentioned below, this tests were picked manually, see below in _Problems_
-* addMissingData - added missing data from json, tyres were added manually
+* addMissingData - added missing data from json (tyres, tyres spec, source of information about tyres, test date 
+according to test title)
+* generateWikiTable - generate table for wiki
 
 You run them in this order:
 
@@ -41,6 +43,7 @@ You run them in this order:
     gradle readTestData
     gradle readMissingTestData
     gradle addMissingData
+    gradle generateWikiTable
 
 Script _importLinks_ drops data from Mongo and inserts fresh one to collection _links_. _verifyLinks_ only updates data.
  _readTestData_ inserts new data, and can be restarted if it fails. It starts where it stopped before. If you want to 
@@ -72,8 +75,10 @@ This tests results were added manually:
 * [Lamborghini Murcielago LP640 - 1041040](http://www.auto-motor-und-sport.de/supertest/lamborghini-murcielago-lp-640-auf-nordschleife-und-hockenheimring-1041040.html) - Nurburgring data on image and in text
 * [Porsche 911 GT3 - 1040952](http://www.auto-motor-und-sport.de/supertest/porsche-911-gt3-auf-der-rennstrecke-nuerburgring-hockenheim-1040952.html) - Nurburgring data on image and in text
 * [Pagani Zonda S - 1036024](http://www.auto-motor-und-sport.de/supertest/pagani-zonda-s-supertest-1036024.html) - Nurburgring data in text
+
 This tests was added manually (whole test):
 * [Audi RS4 - 1036092](http://www.auto-motor-und-sport.de/supertest/raum-zu-glauben-supertest-10-2000-audi-rs4-1036092.html) - Nurburgring data in test section
+
 This tests don't have any test results:
 * [Renault Megane Sport Trophy - 1041029](http://www.auto-motor-und-sport.de/supertest/renault-megane-sport-trophy-sport-auto-edition-im-supertest-der-megane-sport-trophy-sport-auto-edition-auf-der-nordschleife-1041029.html) - no data at all
 * [Aston Martin V12 Vanquish - 1036049](http://www.auto-motor-und-sport.de/supertest/aston-martin-v12-vanquish-im-supertest-test-des-aston-martin-v12-vanquish-auf-der-nordschleife-1036049.html) - no data at all
