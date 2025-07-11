@@ -9,9 +9,7 @@ class Car {
 
     Integer id
 
-    String make, model, productionYears, nordschleifeTime, hockenheimTime, url, driver, gearbox, layout
-
-    LocalDate testDate
+    String make, model, productionYears, nordschleifeTime, hockenheimTime, url, testTitle, driver, gearbox, layout, testDate
 
     Integer weight, power, torque
 
