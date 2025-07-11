@@ -1,0 +1,63 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+
+ext {
+
+    drivers = ["chrome"]
+
+    ext {
+        groovyVersion = '2.4.7'
+        gebVersion = '1.0'
+        seleniumVersion = '2.51.0'
+        chromeDriverVersion = '2.24'
+        phantomJsVersion = '1.9.7'
+    }
+}
+
+apply plugin: "groovy"
+apply from: "gradle/idea.gradle"
+apply from: "gradle/osSpecificDownloads.gradle"
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+
+    compile "org.codehaus.groovy:groovy-all:$groovyVersion"
+    compile "org.gebish:geb-core:$gebVersion"
+
+    // Drivers
+    compile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+}
+
+drivers.each { driver ->
+    task "${driver}Test"(type: Test) {
+        reports {
+            html.destination = reporting.file("$name/tests")
+            junitXml.destination = file("$buildDir/test-results/$name")
+        }
+
+        outputs.upToDateWhen { false }  // Always run tests
+
+        systemProperty "geb.build.reportsDir", reporting.file("$name/geb")
+        systemProperty "geb.env", driver
+
+        println "${driver}" + "$name"
+        // If you wanted to set the baseUrl in your build…
+        // systemProperty "geb.build.baseUrl", "http://myapp.com"
+    }
+}
+
+task runScript (dependsOn: 'classes', type: JavaExec) {
+    dependsOn unzipChromeDriver
+
+    def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
+    def webdriverChromeDriver = new File(unzipChromeDriver.outputs.files.singleFile, chromedriverFilename).absolutePath
+    systemProperty "webdriver.chrome.driver", webdriverChromeDriver
+
+    main = 'Parse'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+apply from: "gradle/ci.gradle"
