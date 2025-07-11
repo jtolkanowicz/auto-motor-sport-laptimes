@@ -1072,13 +1072,6 @@
     }
   },
   {
-    "_id":11647091,
-    "tyres":{
-      "name":"Pirelli P Zero Trofeo R",
-      "optional":true
-    }
-  },
-  {
     "_id":9266605,
     "nordschleifeTime":"7.35",
     "hockenheimTime":"1.08,7",
