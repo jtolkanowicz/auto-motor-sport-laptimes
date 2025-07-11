@@ -87,5 +87,4 @@ This tests don't have any test results:
 ## Other issues
 * Porsche 918 has got power only from combustion engine
 * gradle task have some steps in common, it can be refactored
-* add info to wiki about tyre spec, source of tyre information, optional tyre
-* change tyre ?structure
+* no tyre types (semi, UHP, etc)
