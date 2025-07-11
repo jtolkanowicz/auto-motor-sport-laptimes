@@ -8,13 +8,14 @@ import pl.tolkanowicz.ams.pages.LoginPage
  */
 
 TestLinkMongo testLinkMongo = new TestLinkMongo()
-List<TestLink> notVerifiedLinks = testLinkMongo.getAllNotVerifiedLinks()
+Set<TestLink> notVerifiedLinks = testLinkMongo.getAllNotVerifiedLinks()
+Integer count = notVerifiedLinks.size()
 
 new LoginPage().login()
-notVerifiedLinks.each{ TestLink link ->
+notVerifiedLinks.eachWithIndex{ TestLink link, int i->
     CarPage carPage = new CarPage(link)
     link.verified = true
     link.hasTestData = carPage.hasTestData()
     testLinkMongo.updateTestLink(link)
-    println "Current id " + link.id
+    println "Current id=$i/$count; article url $link.url"
 }
