@@ -38,7 +38,7 @@ class CarPage {
     public Car getCarData() {
         if (hasCarData) {
             Browser.drive {
-                car = new Car()
+                car = new Car(url: url)
 
                 readId()
 
