@@ -61,26 +61,12 @@ class TestLinkMongo {
         Document testLink = collection.find(eq("url", url)).first()
         return testLink
     }
-
-    public List<TestLink> getAllLinks(){
-        List<TestLink> urls = collection.find() as List<TestLink>
-        return urls
-    }
-
+    
     public List<TestLink> getAllNotVerifiedLinks(){
         List<TestLink> testLinks = new ArrayList<>()
         collection.find(eq("verified", false)).each {
             document ->
             testLinks.add(getTestLinkFromDocument(document))
-        }
-        return testLinks
-    }
-
-    public List<TestLink> getAllLinksWithoutData(){
-        List<TestLink> testLinks = new ArrayList<>()
-        collection.find(eq("hasCarData", false)).each {
-            document ->
-                testLinks.add(getTestLinkFromDocument(document))
         }
         return testLinks
     }
