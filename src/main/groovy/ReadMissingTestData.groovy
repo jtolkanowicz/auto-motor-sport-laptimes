@@ -14,16 +14,10 @@ testLinkIds.eachWithIndex{ Integer id, int i ->
     CarPage carPage = new CarPage(link)
     Car car = carPage.car
     if(!carMongo.carExists(car.id)) {
-        //manually set hasTestData to true, to continu with readData
+        //manually set hasTestData to true, to continue with readData
         carPage.hasTestData()
         carPage.hasTestData = true
         carPage.readData()
         carMongo.createCar(car)
     }
 }
-/*TestLink link = testLinkMongo.getTestLink(1041052)
-CarPage carPage = new CarPage(link)
-if(carPage.hasTestData()){
-    carPage.readData()
-}
-println carPage.car*/
