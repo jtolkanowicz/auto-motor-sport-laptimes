@@ -13,7 +13,7 @@ new LoginPage().login()
 testLinks.eachWithIndex{ TestLink link, int i ->
     CarPage carPage = new CarPage(link)
     Car car = carPage.car
-    if(!carMongo.carExists(car.id) && carPage.hasTestData()) {
+    if(!carMongo.carExists(car._id) && carPage.hasTestData()) {
         println "Current id=$i/$count; article url $link.url"
         carPage.readData()
         carMongo.createCar(car)
