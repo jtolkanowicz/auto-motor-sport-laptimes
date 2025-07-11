@@ -21,6 +21,6 @@ if(!carMongo.carExists(car.id)){
     }
 }
 String json = carMongo.getCar(car.id).toJson()
-System.out.println(JsonOutput.prettyPrint(json))
+println JsonOutput.prettyPrint(json)
 
 
