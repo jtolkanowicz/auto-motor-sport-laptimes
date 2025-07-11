@@ -34,7 +34,8 @@
     "testDate":"2001-11",
     "tyres":{
       "name":"Bridgestone Potenza RE040",
-      "source":"https://type-r-owners.co.uk/ep3.html"
+      "source":"https://type-r-owners.co.uk/ep3.html",
+      "sourceTitle":"Type-R-Owners - Honda Civic Type-R (EP3)"
     }
   },
   {
@@ -49,7 +50,8 @@
     "model":"156 3.2 V6 24V GTA",
     "tyres":{
       "name":"Pirelli P Zero Rosso",
-      "source":"http://www.auto-motor-und-sport.de/einzeltests/alfa-gta-tradition-verpflichtet-744392.html"
+      "source":"http://www.auto-motor-und-sport.de/einzeltests/alfa-gta-tradition-verpflichtet-744392.html",
+      "sourceTitle":"Alfa Romeo 156 3.2 V6 24 V GTA: Der neue GTA krönt die 156-Baureihe"
     }
   },
   {
@@ -79,8 +81,7 @@
   {
     "_id":1041204,
     "tyres":{
-      "name":"Yokohama Advan A046",
-      "source":"http://www.roadandtrack.com/new-cars/first-drives/reviews/a7507/classic-drive-mitsubishi-evo-viii/"
+      "name":"Yokohama Advan"
     }
   },
   {
@@ -161,7 +162,7 @@
   {
     "_id":1040989,
     "tyres":{
-      "name":"Dunlop SP Sport Super Race"
+      "name":"Dunlop SP Super Sport Race"
     }
   },
   {
@@ -207,6 +208,7 @@
     "tyres":{
       "name":"Michelin Pilot Sport",
       "source":"http://www.auto-motor-und-sport.de/einzeltests/porsche-boxster-s-version-s-klasse-669034.html",
+      "sourceTitle":"Porsche Boxster S-Version: S-Klasse",
       "spec":"N1"
     }
   },
@@ -226,7 +228,8 @@
     "_id":1035975,
     "tyres":{
       "name":"Bridgestone Potenza RE050A",
-      "source":"http://www.auto-motor-und-sport.de/einzeltests/bmw-335i-schnell-treiben-744426.html"
+      "source":"http://www.auto-motor-und-sport.de/einzeltests/bmw-335i-schnell-treiben-744426.html",
+      "sourceTitle":"BMW 335i: Schnell-Treiben"
     }
   },
   {
@@ -239,7 +242,7 @@
   {
     "_id":1143295,
     "tyres":{
-      "name":"Dunlop SP Sportmaxx"
+      "name":"Dunlop SP Sport Maxx"
     }
   },
   {
@@ -292,7 +295,8 @@
     "testDate":"2001-10",
     "tyres":{
       "name":"Continental Sport Contact 2",
-      "source":"http://www.auto-motor-und-sport.de/einzeltests/porsche-911-carrera-das-kleine-plus-767590.html"
+      "source":"http://www.auto-motor-und-sport.de/einzeltests/porsche-911-carrera-das-kleine-plus-767590.html",
+      "sourceTitle":"Porsche 911 Carrera: Das kleine Plus"
     }
   },
   {
@@ -314,7 +318,8 @@
     "testDate":"2000-11",
     "tyres":{
       "name":"Yokohama A039",
-      "source":"http://web.archive.org/web/20010426185719/http://www.lotuscars.co.uk/template.cfm?name=lotnews_exige"
+      "source":"http://web.archive.org/web/20010426185719/http://www.lotuscars.co.uk/template.cfm?name=lotnews_exige",
+      "sourceTitle":"News  - Exige - Take the Chequered Flag!"
     }
   },
   {
@@ -380,7 +385,8 @@
     "_id":1036000,
     "tyres":{
       "name":"Bridgestone Potenza RE050A",
-      "source":"http://www.auto-motor-und-sport.de/vergleichstest/fit-for-fun-slk-350-z4-3-0-si-und-350-z-roadster-762023.html"
+      "source":"http://www.auto-motor-und-sport.de/vergleichstest/fit-for-fun-slk-350-z4-3-0-si-und-350-z-roadster-762023.html",
+      "sourceTitle":"Fit for fun: SLK 350, Z4 3.0 si und 350 Z Roadster"
     }
   },
   {
@@ -512,7 +518,7 @@
   {
     "_id":1813666,
     "tyres":{
-      "name":"Toyo Proxess R888"
+      "name":"Toyo Proxes R888"
     }
   },
   {
@@ -538,7 +544,7 @@
   {
     "_id":2866506,
     "tyres":{
-      "name":"Dunlop Sport Maxx GT"
+      "name":"Dunlop SP Sport Maxx GT"
     }
   },
   {
@@ -589,7 +595,7 @@
   {
     "_id":1323372,
     "tyres":{
-      "name":"Dunlop Sportmaxx GT"
+      "name":"Dunlop SP Sport Maxx GT"
     }
   },
   {
@@ -644,7 +650,7 @@
   {
     "_id":3972491,
     "tyres":{
-      "name":"Dunlop Sport Maxx GT"
+      "name":"Dunlop SP Sport Maxx GT"
     }
   },
   {
@@ -674,7 +680,7 @@
   {
     "_id":4022553,
     "tyres":{
-      "name":"Bridgestone Potenza RE50A"
+      "name":"Bridgestone Potenza RE050A"
     }
   },
   {
@@ -744,7 +750,7 @@
   {
     "_id":5585295,
     "tyres":{
-      "name":"Michelin Pilot Supersport"
+      "name":"Michelin Pilot Super Sport"
     }
   },
   {
@@ -756,7 +762,7 @@
   {
     "_id":5038103,
     "tyres":{
-      "name":"Pirell P Zero"
+      "name":"Pirelli P Zero"
     }
   },
   {
@@ -874,13 +880,13 @@
   {
     "_id":8086993,
     "tyres":{
-      "name":"Dunlop SportMaxx RT"
+      "name":"Dunlop Sport Maxx RT"
     }
   },
   {
     "_id":8313888,
     "tyres":{
-      "name":"Michelin Pilot Supersport"
+      "name":"Michelin Pilot Super Sport"
     }
   },
   {
@@ -888,6 +894,7 @@
     "tyres":{
       "name":"Michelin Pilot Sport Cup 2",
       "source":"http://www.auto-motor-und-sport.de/vergleichstest/porsche-918-spyder-gegen-mclaren-p1-887-und-916-ps-fuer-den-legendenstatus-8893152.html",
+      "sourceTitle":"Porsche 918 Spyder gegen McLaren P1: 887 und 916 PS für den Legendenstatus",
       "spec":"N0"
     }
   },
@@ -959,7 +966,7 @@
   {
     "_id":9712657,
     "tyres":{
-      "name":"Dunlop Sport Maxx RT"
+      "name":"Dunlop SportMaxx RT"
     }
   },
   {
@@ -1068,6 +1075,13 @@
     "_id":11633282,
     "tyres":{
       "name":"Michelin Pilot Sport Cup 2",
+      "optional":true
+    }
+  },
+  {
+    "_id":11647091,
+    "tyres":{
+      "name":"Pirelli P Zero Trofeo R",
       "optional":true
     }
   },
