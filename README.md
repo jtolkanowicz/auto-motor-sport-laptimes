@@ -88,3 +88,10 @@ This tests don't have any test results:
 * Porsche 918 has got power only from combustion engine
 * gradle task have some steps in common, it can be refactored
 * no tyre types (semi, UHP, etc)
+
+## Additiona links with laptimes
+* http://m.forocoches.com/foro/showthread.php?t=195127
+* https://www.gtplanet.net/forum/threads/official-sportauto-hockenheim-laptimes.82508/
+* https://www.scoobynet.com/other-marques-33/537667-official-sportauto-hockenheim-laptimes.html
+* https://www.scoobynet.com/scoobynet-general-1/843312-best-nurburgring-lap-times.html
+* https://www.scoobynet.com/scoobynet-general-1/395646-lap-times-round-nurburgring-sp.html
