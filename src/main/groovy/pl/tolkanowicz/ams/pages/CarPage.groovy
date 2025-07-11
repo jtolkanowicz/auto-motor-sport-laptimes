@@ -217,9 +217,9 @@ class CarPage {
         }
     }
 
-    private static Float parseAccelerationTime(String time){
+    private static Double parseAccelerationTime(String time){
         String temp = time.split()[0].replace(",", ".")
-        return Float.parseFloat(temp)
+        return Double.parseDouble(temp)
 
     }
 

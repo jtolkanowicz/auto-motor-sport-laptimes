@@ -9,9 +9,12 @@ class Car {
 
     Integer id
 
-    String make, model, productionYears, nordschleifeTime, hockenheimTime, url, testTitle, driver, gearbox, layout, testDate
+    String make, model, productionYears, nordschleifeTime, hockenheimTime, url, testTitle, driver, gearbox, layout,
+            testDate, tyres, tyresSource, tyresSpec
 
     Integer weight, power, torque
 
-    Float time100, time200
+    Double time100, time200
+
+    Boolean optionalTyre
 }
